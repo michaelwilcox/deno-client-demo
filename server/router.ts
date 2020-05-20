@@ -7,6 +7,6 @@ const router = new Router();
 
 router
     .get("/", landing)
-    .get("/search/:query", search);
+    .get("/search/:symbol", search);
 
 export default router;
