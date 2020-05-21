@@ -1,6 +1,8 @@
-import { RouterContext } from 'https://deno.land/x/oak/mod.ts';
+import { RouterContext, send } from 'https://deno.land/x/oak/mod.ts';
 
-export default (context: RouterContext) => {
-    context.response.body = "Hello world!";
-    // TODO: handle base case
+export default async (context: RouterContext) => {
+    await send(context, context.request.url.pathname, {
+        root: `${Deno.cwd()}/client`,
+        index: "index.html",
+    });
 };
