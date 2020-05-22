@@ -3,7 +3,7 @@ import {
     yellow,
   } from "https://deno.land/std@0.51.0/fmt/colors.ts";
 
-import { Application } from 'https://deno.land/x/oak/mod.ts';
+import { Application, send } from 'https://deno.land/x/oak/mod.ts';
 import router from './router.ts';
 import error from './middleware/error.ts';
 import logger from './middleware/logger.ts';
@@ -17,6 +17,13 @@ app.use(logger);
 app.use(responseTime);
 app.use(router.routes());
 app.use(router.allowedMethods());
+
+app.use(async (context) => {
+  await send(context, context.request.url.pathname, {
+    root: `${Deno.cwd()}/client/build`,
+  });
+});
+
 app.use(notFound);
 
 const controller = new AbortController();
