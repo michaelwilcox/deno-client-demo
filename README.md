@@ -3,6 +3,7 @@
 ## prerequisite
 
 [deno](https://deno.land/)
+[node :p](https://nodejs.org/en/)
 
 ## run
 
