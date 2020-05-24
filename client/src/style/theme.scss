@@ -1,0 +1,14 @@
+@import "colors.scss";
+@import "css-vars/css-vars";
+
+$css-vars-use-native: true;
+
+$backgroundPrimary: $backgroundDark;
+$textPrimary: $textLight;
+
+@include css-vars(
+  (
+    --bg-primary: $backgroundPrimary,
+    --text-primary: $textPrimary,
+  )
+);
