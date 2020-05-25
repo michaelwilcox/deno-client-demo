@@ -5,7 +5,7 @@
 - [deno](https://deno.land/)
 - [node :p](https://nodejs.org/en/)
 
-## run
+## setup && run
 
 from root:
 
@@ -16,7 +16,7 @@ cd ..
 npm run dev
 ```
 
-# Note
+## Note
 
 `client/` requires a `.env` file with at least these variables:
 
