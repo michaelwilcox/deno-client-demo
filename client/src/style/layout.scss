@@ -1,0 +1,20 @@
+$containerMargin: 40px;
+$rowMargin: 10px 0;
+$linkHoverOpacity: 0.75;
+
+a {
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+        opacity: $linkHoverOpacity;
+        cursor: pointer;
+    }
+}
+
+.container {
+    margin: $containerMargin;
+}
+
+.row {
+    margin: $rowMargin;
+}
