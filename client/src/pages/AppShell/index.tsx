@@ -1,42 +1,51 @@
 import React, { FormEvent, useState, ChangeEvent } from "react";
+import { navigate } from "@reach/router";
+import {
+  StockProvider,
+  useStockDispatch,
+  updateStock,
+} from "../../context/stock";
 import Routing from "../../routing";
 import "./style.css";
 
-interface Props { }
+interface Props {}
 
-export default function AppShell(props: Props) {
+const SearchForm = () => {
   const [symbol, setSymbol] = useState("");
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const dispatch = useStockDispatch();
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    fetch(`${process.env.REACT_APP_SERVER}/symbol/${symbol}`)
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        setSymbol("");
-      });
+    await updateStock(dispatch, symbol);
+    setSymbol("");
+    navigate(`/chart/${symbol}`);
   };
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        name="search"
+        value={symbol}
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          setSymbol(e.target.value)
+        }
+      />
+    </form>
+  );
+};
+
+export default function AppShell(props: Props) {
+  return (
+    <StockProvider>
       <header>
         <nav>
           <ul>
             <li>
-              <form onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  name="search"
-                  value={symbol}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    setSymbol(e.target.value)
-                  }
-                />
-              </form>
+              <SearchForm />
             </li>
           </ul>
         </nav>
       </header>
       <Routing />
-    </div>
+    </StockProvider>
   );
 }

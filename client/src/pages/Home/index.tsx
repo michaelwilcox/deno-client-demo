@@ -4,7 +4,7 @@ import "./style.css";
 
 function Home() {
   return (
-    <div className="Home">
+    <div id="home">
       <News />
     </div>
   );

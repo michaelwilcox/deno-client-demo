@@ -1,5 +1,3 @@
-@import "../../style/theme.scss";
-
 .container {
     .news-row {
         flex: 1;
@@ -10,7 +8,11 @@
 
         a {
             padding: 5px 0;
-            color: $textPrimary;
+            color: var(--text-primary);
+        }
+
+        p {
+            color: var(--text-secondary);
         }
 
         div {
