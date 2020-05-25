@@ -15,7 +15,7 @@ function StockChart(props: any) {
 
   useEffect(() => {
     updateStock(dispatch, props.symbol);
-  }, props.symbol); // empty array 2nd arg prevents re-fetching!
+  }, props.symbol); // only reload data on route symbol change!
   return (
     <div id="chart" className="container">
       <h2>{companyName}</h2>

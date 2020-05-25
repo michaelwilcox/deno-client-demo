@@ -9,10 +9,13 @@ export default function News(props: Props) {
   const [rss, setRSS] = useState({ items: [] });
 
   async function fetchRSS() {
-    await fetch(`${process.env.REACT_APP_SERVER}/rss`)
-      .then((res) => res.json())
-      .then((res) => setRSS(res))
-      .catch(console.error);
+    try {
+      const res = await fetch(`${process.env.REACT_APP_SERVER}/rss`);
+      const data = await res.json();
+      setRSS(data);
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   useEffect(() => {
