@@ -1,18 +1,15 @@
-import React, {
-  FormEvent,
-  useState,
-  ChangeEvent,
-} from "react";
+import React, { FormEvent, useState, ChangeEvent } from "react";
 import Routing from "../../routing";
 import "./style.css";
 
-interface Props {}
+interface Props { }
 
 export default function AppShell(props: Props) {
   const [symbol, setSymbol] = useState("");
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    fetch(`http://localhost:8000/symbol/${symbol}`)
+    fetch(`${process.env.REACT_APP_SERVER}/symbol/${symbol}`)
       .then((res) => res.json())
       .then((res) => {
         console.log(res);
@@ -31,7 +28,8 @@ export default function AppShell(props: Props) {
                   name="search"
                   value={symbol}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    setSymbol(e.target.value)}
+                    setSymbol(e.target.value)
+                  }
                 />
               </form>
             </li>
