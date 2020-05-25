@@ -3,12 +3,18 @@
 
 $css-vars-use-native: true;
 
-$backgroundPrimary: $backgroundDark;
-$textPrimary: $textLight;
+$backgroundPrimary: $background__dark;
+$textPrimary: $textPrimary__dark;
+$textSecondary: $textSecondary__dark;
+
+// inputs
+$inputBorderPrimary: $inputBorder__dark;
 
 @include css-vars(
   (
     --bg-primary: $backgroundPrimary,
     --text-primary: $textPrimary,
+    --text-secondary: $textSecondary,
+    --input-border-primary: $inputBorderPrimary
   )
 );
