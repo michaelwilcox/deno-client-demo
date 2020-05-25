@@ -1,13 +1,24 @@
-import React from "react";
-import { useStockState } from "../../context/stock";
+import React, { useEffect } from "react";
+import {
+  updateStock,
+  useStockDispatch,
+  useStockState,
+} from "../../context/stock";
 import "./style.css";
 
-function StockChart() {
+function StockChart(props: any) {
   const state = useStockState();
-  console.log("chart state", state);
+  const {
+    stock: { companyName },
+  } = state;
+  const dispatch = useStockDispatch();
+
+  useEffect(() => {
+    updateStock(dispatch, props.symbol);
+  }, props.symbol); // empty array 2nd arg prevents re-fetching!
   return (
     <div id="chart" className="container">
-      <p>Chart!!!1!</p>
+      <h2>{companyName}</h2>
     </div>
   );
 }

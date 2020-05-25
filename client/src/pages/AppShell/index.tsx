@@ -1,10 +1,6 @@
 import React, { FormEvent, useState, ChangeEvent } from "react";
 import { navigate } from "@reach/router";
-import {
-  StockProvider,
-  useStockDispatch,
-  updateStock,
-} from "../../context/stock";
+import { StockProvider } from "../../context/stock";
 import Routing from "../../routing";
 import "./style.css";
 
@@ -12,11 +8,8 @@ interface Props {}
 
 const SearchForm = () => {
   const [symbol, setSymbol] = useState("");
-  const dispatch = useStockDispatch();
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await updateStock(dispatch, symbol);
-    setSymbol("");
     navigate(`/chart/${symbol}`);
   };
   return (
