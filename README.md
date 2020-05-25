@@ -11,7 +11,16 @@ from root:
 
 ```bash
 cd client/
-npm run build
+npm install
 cd ..
-deno run --allow-net --allow-read server/index.ts
+npm run dev
+```
+
+# Note
+
+`client/` requires a `.env` file with at least these variables:
+
+```
+REACT_APP_NODE_ENV=dev
+REACT_APP_SERVER=http://localhost:8000
 ```
