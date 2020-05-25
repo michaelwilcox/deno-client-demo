@@ -3,6 +3,9 @@
 # code artifacts
 src/**/*.css
 
+# environment variables
+.env
+
 # dependencies
 /node_modules
 /.pnp
