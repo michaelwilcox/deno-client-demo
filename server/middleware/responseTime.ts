@@ -1,4 +1,4 @@
-import { Context } from 'https://deno.land/x/oak/mod.ts';
+import { Context } from "https://deno.land/x/oak/mod.ts";
 
 // Response Time
 export default async (context: Context, next: () => Promise<void>) => {
