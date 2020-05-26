@@ -19,22 +19,3 @@ p {
 li {
   outline: none;
 }
-
-header {
-  display: flex;
-  flex-direction: row;
-
-  li {
-    list-style: none;
-  }
-
-  input {
-    outline: none;
-    background: transparent;
-    border-radius: 5px;
-    padding: 5px;
-    width: 200px;
-    height: 20px;
-    font-size: 14px;
-  }
-}
