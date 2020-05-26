@@ -1,5 +1,6 @@
 {
   "scripts": {
-    "dev": "cd client/ && npm run build && cd .. && deno run --allow-net --allow-read server/index.ts --config server/tsconfig.json"
+    "dev": "cd client/ && npm run build && cd .. && deno run --allow-net --allow-read server/index.ts --config server/tsconfig.json",
+    "setup": "cd client/ && npm install && cd .."
   }
 }

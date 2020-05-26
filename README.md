@@ -10,10 +10,7 @@
 from root:
 
 ```bash
-cd client/
-npm install
-cd ..
-npm run dev
+npm run setup && npm run dev
 ```
 
 ## Note
@@ -24,3 +21,5 @@ npm run dev
 REACT_APP_NODE_ENV=dev
 REACT_APP_SERVER=http://localhost:8000
 ```
+
+Happy Hacking!
