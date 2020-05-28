@@ -6,7 +6,7 @@ import {
 } from "../../context/stock";
 import "./style.css";
 
-function StockChart(props: any) {
+export default function StockChart(props: any) {
   const state = useStockState();
   const {
     quoteData: { companyName },
@@ -22,5 +22,3 @@ function StockChart(props: any) {
     </div>
   );
 }
-
-export default StockChart;
