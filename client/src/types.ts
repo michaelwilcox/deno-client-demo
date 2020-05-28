@@ -25,7 +25,7 @@ export interface ConsumerArgs {
   children(context: any): ReactElement;
 }
 
-export interface Stock {
+export interface StockQuoteData {
   avgTotalVolume?: number;
   calculationPrice?: string;
   change?: number;

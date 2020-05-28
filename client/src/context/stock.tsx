@@ -1,46 +1,46 @@
 import React from "react";
-import { Action, ConsumerArgs, ProviderArgs, Stock } from "../types";
+import { Action, ConsumerArgs, ProviderArgs, StockQuoteData } from "../types";
 
-export const STOCK_DATA_FETCH_REQUEST = "STOCK_DATA_FETCH_REQUEST";
-export const STOCK_DATA_FETCH_SUCCESS = "STOCK_DATA_FETCH_SUCCESS";
-export const STOCK_DATA_FETCH_FAILURE = "STOCK_DATA_FETCH_FAILURE";
+export const STOCK_QUOTE_DATA_FETCH_REQUEST = "STOCK_QUOTE_DATA_FETCH_REQUEST";
+export const STOCK_QUOTE_DATA_FETCH_SUCCESS = "STOCK_QUOTE_DATA_FETCH_SUCCESS";
+export const STOCK_QUOTE_DATA_FETCH_FAILURE = "STOCK_QUOTE_DATA_FETCH_FAILURE";
 
 interface StockAction extends Action {
   type:
-    | typeof STOCK_DATA_FETCH_REQUEST
-    | typeof STOCK_DATA_FETCH_SUCCESS
-    | typeof STOCK_DATA_FETCH_FAILURE;
-  payload?: Stock;
+    | typeof STOCK_QUOTE_DATA_FETCH_REQUEST
+    | typeof STOCK_QUOTE_DATA_FETCH_SUCCESS
+    | typeof STOCK_QUOTE_DATA_FETCH_FAILURE;
+  payload?: StockQuoteData;
 }
 type Dispatch = (action: StockAction) => void;
 
 interface StockState {
   error?: boolean;
   loading: boolean;
-  stock: Stock;
+  quoteData: StockQuoteData;
 }
 
 const initialState: StockState = {
   loading: false,
-  stock: {},
+  quoteData: {},
 };
 // TODO: fix action type
 function stockReducer(state = initialState, action: any) {
   switch (action.type) {
-    case STOCK_DATA_FETCH_REQUEST: {
-      return { loading: true, stock: {} };
+    case STOCK_QUOTE_DATA_FETCH_REQUEST: {
+      return { loading: true, quoteData: {} };
     }
-    case STOCK_DATA_FETCH_SUCCESS: {
+    case STOCK_QUOTE_DATA_FETCH_SUCCESS: {
       return {
         loading: false,
-        stock: action.payload,
+        quoteData: action.payload,
       };
     }
-    case STOCK_DATA_FETCH_FAILURE: {
+    case STOCK_QUOTE_DATA_FETCH_FAILURE: {
       return {
+        ...state,
         error: true,
         loading: false,
-        stock: {},
       };
     }
     default: {
@@ -71,7 +71,6 @@ function StockConsumer(args: ConsumerArgs) {
   return (
     <StockStateContext.Consumer>
       {(context) => {
-        console.log("context from child", context);
         if (context === undefined) {
           throw new Error("StockConsumer must be used within a StockProvider");
         }
@@ -96,16 +95,15 @@ function useStockDispatch() {
   return context;
 }
 
-export async function updateStock(dispatch: Dispatch, symbol: string) {
-  dispatch({ type: STOCK_DATA_FETCH_REQUEST });
+export async function fetchStockQuote(dispatch: Dispatch, symbol: string) {
+  dispatch({ type: STOCK_QUOTE_DATA_FETCH_REQUEST });
   try {
     const res = await fetch(`${process.env.REACT_APP_SERVER}/symbol/${symbol}`);
     const data = await res.json();
-    dispatch({ type: STOCK_DATA_FETCH_SUCCESS, payload: data.quote });
-    console.log(data);
+    dispatch({ type: STOCK_QUOTE_DATA_FETCH_SUCCESS, payload: data.quote });
   } catch (e) {
     console.warn(e);
-    dispatch({ type: STOCK_DATA_FETCH_FAILURE });
+    dispatch({ type: STOCK_QUOTE_DATA_FETCH_FAILURE });
   }
 }
 

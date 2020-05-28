@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import {
-  updateStock,
+  fetchStockQuote,
   useStockDispatch,
   useStockState,
 } from "../../context/stock";
@@ -9,12 +9,12 @@ import "./style.css";
 function StockChart(props: any) {
   const state = useStockState();
   const {
-    stock: { companyName },
+    quoteData: { companyName },
   } = state;
   const dispatch = useStockDispatch();
 
   useEffect(() => {
-    updateStock(dispatch, props.symbol);
+    fetchStockQuote(dispatch, props.symbol);
   }, props.symbol); // only reload data on route symbol change!
   return (
     <div id="chart" className="container">
