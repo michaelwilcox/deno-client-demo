@@ -1,13 +1,13 @@
 # deno-routing
 
-## prerequisite
+## prerequisites
 
 - [deno](https://deno.land/)
 - [node :p](https://nodejs.org/en/)
 
 ## setup && run
 
-from root:
+From root, make sure all [prerequisites](#prerequisites) are installed. Then,
 
 ```bash
 npm run setup && npm run dev
