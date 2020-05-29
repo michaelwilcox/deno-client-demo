@@ -1,5 +1,5 @@
 import React from "react";
-import { StockProvider } from "../../context/stock";
+import { StockProvider } from "../../contexts/stock";
 import DashboardHeader from "../../components/DashboardHeader";
 import Routing from "../../routing";
 import "./style.css";

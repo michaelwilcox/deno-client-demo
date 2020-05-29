@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { dateToHours } from "../../utility/dates";
+import { dateToHours } from "../../lib/dates";
 import "./style.css";
 import { LatestNewsArticle } from "../../types";
 

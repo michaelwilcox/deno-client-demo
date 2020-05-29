@@ -3,7 +3,7 @@ import {
   fetchStockQuote,
   useStockDispatch,
   useStockState,
-} from "../../context/stock";
+} from "../../contexts/stock";
 import "./style.css";
 
 export default function StockChart(props: any) {
