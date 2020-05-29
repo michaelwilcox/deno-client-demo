@@ -4,15 +4,25 @@ import { Action, ConsumerArgs, ProviderArgs, StockQuoteData } from "../types";
 export const STOCK_QUOTE_DATA_FETCH_REQUEST = "STOCK_QUOTE_DATA_FETCH_REQUEST";
 export const STOCK_QUOTE_DATA_FETCH_SUCCESS = "STOCK_QUOTE_DATA_FETCH_SUCCESS";
 export const STOCK_QUOTE_DATA_FETCH_FAILURE = "STOCK_QUOTE_DATA_FETCH_FAILURE";
+export const STOCK_CHART_DATA_FETCH_REQUEST = "STOCK_CHART_DATA_FETCH_REQUEST";
+export const STOCK_CHART_DATA_FETCH_SUCCESS = "STOCK_CHART_DATA_FETCH_SUCCESS";
+export const STOCK_CHART_DATA_FETCH_FAILURE = "STOCK_CHART_DATA_FETCH_FAILURE";
 
-interface StockAction extends Action {
+interface StockQuoteAction extends Action {
   type:
     | typeof STOCK_QUOTE_DATA_FETCH_REQUEST
     | typeof STOCK_QUOTE_DATA_FETCH_SUCCESS
     | typeof STOCK_QUOTE_DATA_FETCH_FAILURE;
   payload?: StockQuoteData;
 }
-type Dispatch = (action: StockAction) => void;
+interface StockChartAction extends Action {
+  type:
+    | typeof STOCK_CHART_DATA_FETCH_REQUEST
+    | typeof STOCK_CHART_DATA_FETCH_SUCCESS
+    | typeof STOCK_CHART_DATA_FETCH_FAILURE;
+  payload?: any;
+}
+type StockDispatch = (action: StockQuoteAction | StockChartAction) => void;
 
 interface StockState {
   error?: boolean;
@@ -50,7 +60,7 @@ function stockReducer(state = initialState, action: any) {
 }
 
 const StockStateContext = React.createContext(initialState);
-const StockDispatchContext = React.createContext<Dispatch | undefined>(
+const StockDispatchContext = React.createContext<StockDispatch | undefined>(
   undefined
 );
 
@@ -95,7 +105,7 @@ function useStockDispatch() {
   return context;
 }
 
-export async function fetchStockQuote(dispatch: Dispatch, symbol: string) {
+export async function fetchStockQuote(dispatch: StockDispatch, symbol: string) {
   dispatch({ type: STOCK_QUOTE_DATA_FETCH_REQUEST });
   try {
     const res = await fetch(`${process.env.REACT_APP_SERVER}/symbol/${symbol}`);
@@ -104,6 +114,23 @@ export async function fetchStockQuote(dispatch: Dispatch, symbol: string) {
   } catch (e) {
     console.warn(e);
     dispatch({ type: STOCK_QUOTE_DATA_FETCH_FAILURE });
+  }
+}
+
+export async function fetchStockChartData(
+  dispatch: StockDispatch,
+  symbol: string
+) {
+  dispatch({ type: STOCK_CHART_DATA_FETCH_REQUEST });
+  try {
+    const res = await fetch(
+      `${process.env.REACT_APP_SERVER}/chart-data/${symbol}`
+    );
+    const data = await res.json();
+    dispatch({ type: STOCK_CHART_DATA_FETCH_SUCCESS, payload: data.quote });
+  } catch (e) {
+    console.warn(e);
+    dispatch({ type: STOCK_CHART_DATA_FETCH_FAILURE });
   }
 }
 
