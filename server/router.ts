@@ -14,7 +14,7 @@ router
 
   // API
   .get("/symbol/:symbol", symbol)
-  .get("/charts/:symbol", historical)
+  .get("/chart-data/:symbol", historical)
   .get("/rss", rss);
 
 export default router;
