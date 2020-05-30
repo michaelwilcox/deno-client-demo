@@ -1,5 +1,11 @@
 import React from "react";
-import { Action, ConsumerArgs, ProviderArgs, StockQuoteData } from "../types";
+import {
+  Action,
+  ConsumerArgs,
+  ProviderArgs,
+  StockChartData,
+  StockQuoteData,
+} from "../types";
 
 export const STOCK_QUOTE_DATA_FETCH_REQUEST = "STOCK_QUOTE_DATA_FETCH_REQUEST";
 export const STOCK_QUOTE_DATA_FETCH_SUCCESS = "STOCK_QUOTE_DATA_FETCH_SUCCESS";
@@ -20,7 +26,7 @@ interface StockChartAction extends Action {
     | typeof STOCK_CHART_DATA_FETCH_REQUEST
     | typeof STOCK_CHART_DATA_FETCH_SUCCESS
     | typeof STOCK_CHART_DATA_FETCH_FAILURE;
-  payload?: any;
+  payload?: StockChartData;
 }
 type StockDispatch = (action: StockQuoteAction | StockChartAction) => void;
 

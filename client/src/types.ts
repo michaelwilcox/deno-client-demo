@@ -82,3 +82,16 @@ export interface StockQuoteData {
   week52Low?: number;
   ytdChange?: number;
 }
+
+interface StockChart {
+  date: string;
+  high: number;
+  low: number;
+  open: number;
+  close: number;
+  volume: number;
+}
+export interface StockChartData {
+  range: string;
+  data: [StockChart];
+}
