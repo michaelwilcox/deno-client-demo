@@ -16,7 +16,9 @@ export default async (context: RouterContext) => {
       promises.push(
         fetch(
           `${IEX_API_BASE}/stock/${params.symbol}/chart/${range}?token=${IEX_TOKEN}`
-        ).then((r) => r.json())
+        )
+          .then((r) => r.json())
+          .then(normalize(range))
       );
     }
     await Promise.all(promises).then((res) => {
@@ -29,3 +31,9 @@ export default async (context: RouterContext) => {
     response.body = "Bad Request";
   }
 };
+
+function normalize(range: string) {
+  return (data: any) => {
+    return { range, data };
+  };
+}
