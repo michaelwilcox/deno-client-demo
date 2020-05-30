@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Chart from "../../components/Chart";
 import {
   fetchStockQuote,
   fetchStockChartData,
@@ -24,6 +25,7 @@ export default function StockChart(props: any) {
   return (
     <div id="chart" className="container">
       <h2>{companyName}</h2>
+      <Chart />
     </div>
   );
 }
