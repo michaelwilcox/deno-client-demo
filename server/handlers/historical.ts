@@ -8,7 +8,7 @@ export default async (context: RouterContext) => {
     response.body = "Bad Request";
     return;
   }
-  const ranges = ["dynamic", "5d", "1mm", "1y", "5y"];
+  const ranges = ["1d", "5d", "1m", "1y", "5y"];
   const { IEX_API_BASE, IEX_TOKEN } = config;
   let promises = [];
   try {
@@ -34,6 +34,24 @@ export default async (context: RouterContext) => {
 
 function normalize(range: string) {
   return (data: any) => {
-    return { range, data };
+    let low = null;
+    let high = null;
+
+    for (let slice of data) {
+      if (
+        (high === null && slice.high !== null) ||
+        (slice.high !== null && slice.high > high)
+      ) {
+        high = slice.high;
+      }
+      if (
+        (low === null && slice.low !== null) ||
+        (slice.low !== null && slice.low < low)
+      ) {
+        low = slice.low;
+      }
+    }
+
+    return { range, data, low, high };
   };
 }
