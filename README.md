@@ -34,8 +34,8 @@ REACT_APP_SERVER=http://localhost:8000
 
 ## TODO
 
-- [] better documentation
-- [] tests
-- [] deployment infra
+- [ ] better documentation
+- [ ] tests
+- [ ] deployment infra
 
 Happy Hacking! ☠️
