@@ -6,6 +6,7 @@ $css-vars-use-native: true;
 $backgroundPrimary: $background__dark;
 $textPrimary: $textPrimary__dark;
 $textSecondary: $textSecondary__dark;
+$chartGrid: $chartGrid__dark;
 
 // inputs
 $inputBorderPrimary: $inputBorder__dark;
@@ -15,6 +16,7 @@ $inputBorderPrimary: $inputBorder__dark;
     --bg-primary: $backgroundPrimary,
     --text-primary: $textPrimary,
     --text-secondary: $textSecondary,
-    --input-border-primary: $inputBorderPrimary
+    --input-border-primary: $inputBorderPrimary,
+    --chart-grid: $chartGrid,
   )
 );

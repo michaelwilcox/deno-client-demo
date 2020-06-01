@@ -34,25 +34,45 @@ interface StockState {
   error?: boolean;
   loading: boolean;
   quoteData: StockQuoteData;
+  chartData: StockChartData;
 }
 
 const initialState: StockState = {
   loading: false,
   quoteData: {},
+  chartData: {},
 };
 // TODO: fix action type
 function stockReducer(state = initialState, action: any) {
   switch (action.type) {
     case STOCK_QUOTE_DATA_FETCH_REQUEST: {
-      return { loading: true, quoteData: {} };
+      return { ...state, loading: true, quoteData: {} };
     }
     case STOCK_QUOTE_DATA_FETCH_SUCCESS: {
       return {
+        ...state,
         loading: false,
         quoteData: action.payload,
       };
     }
     case STOCK_QUOTE_DATA_FETCH_FAILURE: {
+      return {
+        ...state,
+        error: true,
+        loading: false,
+      };
+    }
+    case STOCK_CHART_DATA_FETCH_REQUEST: {
+      return { ...state, loading: true, chartData: {} };
+    }
+    case STOCK_CHART_DATA_FETCH_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+        chartData: action.payload,
+      };
+    }
+    case STOCK_CHART_DATA_FETCH_FAILURE: {
       return {
         ...state,
         error: true,
@@ -133,7 +153,7 @@ export async function fetchStockChartData(
       `${process.env.REACT_APP_SERVER}/chart-data/${symbol}`
     );
     const data = await res.json();
-    dispatch({ type: STOCK_CHART_DATA_FETCH_SUCCESS, payload: data.quote });
+    dispatch({ type: STOCK_CHART_DATA_FETCH_SUCCESS, payload: data });
   } catch (e) {
     console.warn(e);
     dispatch({ type: STOCK_CHART_DATA_FETCH_FAILURE });

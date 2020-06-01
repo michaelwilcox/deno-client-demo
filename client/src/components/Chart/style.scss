@@ -1,8 +1,35 @@
-svg {
-  .grid {
-    stroke: white;
-    stroke-dasharray: 1 2;
-    stroke-width: 1;
-    opacity: 0.75;
+#chart {
+  svg {
+    .grid {
+      stroke: var(--chart-grid);
+      stroke-dasharray: 1 2;
+      stroke-width: 1;
+      opacity: 0.2;
+    }
+
+    .x-label {
+      text-anchor: middle;
+    }
+
+    .y-label {
+      text-anchor: end;
+    }
+  }
+  .time {
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: var(--text-primary);
+    width: 200px;
+
+    li {
+      list-style: none;
+
+      &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+      }
+    }
   }
 }

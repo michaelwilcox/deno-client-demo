@@ -12,6 +12,7 @@ export default function StockChart(props: any) {
   const state = useStockState();
   const {
     quoteData: { companyName },
+    chartData,
   } = state;
   const dispatch = useStockDispatch();
 
@@ -24,8 +25,8 @@ export default function StockChart(props: any) {
   }, props.symbol);
   return (
     <div id="chart" className="container">
+      <Chart chartData={chartData} />
       <h2>{companyName}</h2>
-      <Chart />
     </div>
   );
 }

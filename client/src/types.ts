@@ -92,6 +92,8 @@ interface StockChart {
   volume: number;
 }
 export interface StockChartData {
-  range: string;
-  data: [StockChart];
+  range?: string;
+  data?: [StockChart];
+  low?: number;
+  high?: number;
 }
