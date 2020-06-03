@@ -1,20 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import "./style.css";
 import { StockChartData } from "../../types";
 
 interface Props {
   height?: number;
   width?: number;
-  chartData: StockChartData;
+  chartData: Array<StockChartData>;
 }
 
 const time = ["1D", "5D", "1M", "1Y", "5Y"];
 
 function renderLines(axis: string, height: number, width: number) {
-  let lines = [];
-  let total = axis === "x" ? width : height;
+  let slots = axis === "x" ? width / 25 : height / 25;
   let enumerated = 0;
-  for (let i = 0; i <= total / 25; ++i) {
+  let lines = [];
+  for (let i = 0; i <= slots; ++i) {
     let attrs = {};
     if (axis === "x") {
       attrs = { x1: enumerated, x2: enumerated, y1: 0, y2: height };
@@ -27,13 +27,22 @@ function renderLines(axis: string, height: number, width: number) {
   return lines;
 }
 
-function renderTime(t: string) {
-  console.log(t);
+function getASlice(
+  slice: string,
+  pie: Array<StockChartData>,
+  setSlice: Function
+) {
+  return function handleEvent() {
+    setSlice(pie.find((d) => d.range === slice.toLowerCase()));
+  };
 }
 
 export default function Chart(props: Props) {
+  const [slice, setSlice] = useState<StockChartData>();
   const { height = 500, width = 1000, chartData } = props;
-  console.log("chart data", chartData);
+  if (!slice && chartData[0]) {
+    setSlice(chartData[0]);
+  }
   return (
     <div id="chart">
       <svg height={`${height}px`} width={`${width}px`}>
@@ -48,7 +57,7 @@ export default function Chart(props: Props) {
       </svg>
       <ul className="time">
         {time.map((t) => (
-          <li onClick={(e) => renderTime(t)}>{t}</li>
+          <li onClick={getASlice(t, chartData, setSlice)}>{t}</li>
         ))}
       </ul>
     </div>

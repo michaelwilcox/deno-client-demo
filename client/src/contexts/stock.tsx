@@ -34,13 +34,13 @@ interface StockState {
   error?: boolean;
   loading: boolean;
   quoteData: StockQuoteData;
-  chartData: StockChartData;
+  chartData: Array<StockChartData>;
 }
 
 const initialState: StockState = {
   loading: false,
   quoteData: {},
-  chartData: {},
+  chartData: [],
 };
 // TODO: fix action type
 function stockReducer(state = initialState, action: any) {
