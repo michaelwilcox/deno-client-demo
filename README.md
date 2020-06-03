@@ -32,9 +32,13 @@ REACT_APP_NODE_ENV=dev
 REACT_APP_SERVER=http://localhost:8000
 ```
 
+## Is there something missing or that could be done differently?
+
+Open an [issue](https://github.com/michaelwilcox/deno-client-demo/issues), or [PR](https://github.com/michaelwilcox/deno-client-demo/pulls), [email me](mailto:mwilcox56@gmail.com), ping me on [twitter](https://twitter.com/mikewilco_).
+
 ## TODO
 
-- [ ] better documentation
+- [ ] documentation
 - [ ] tests
 - [ ] deployment infra
 
