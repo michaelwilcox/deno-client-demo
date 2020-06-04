@@ -38,6 +38,7 @@ Open an [issue](https://github.com/michaelwilcox/deno-client-demo/issues), or [P
 
 ## TODO
 
+- [ ] cached asset list for search
 - [ ] documentation
 - [ ] tests
 - [ ] deployment infra
