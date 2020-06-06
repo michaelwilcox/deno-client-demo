@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./style.css";
 import { StockChartData } from "../../types";
 
@@ -17,6 +17,11 @@ interface ChartState {
 }
 
 const time = ["1D", "5D", "1M", "1Y", "5Y"];
+const initialState = () => ({
+  slice: {
+    data: [{ date: "", high: 0, low: 0, open: 0, close: 0, volume: 0 }],
+  },
+});
 
 function renderLines(axis: string, height: number, width: number) {
   let slots = axis === "x" ? width / 25 : height / 25;
@@ -63,20 +68,16 @@ function getYValues(state: ChartState) {
   const min = Math.min(...slice.data.map((t) => t.open));
   const max = Math.max(...slice.data.map((t) => t.open));
 
-  console.log(height, min, max);
+  console.log(`height %s min %s max %s`, height, min, max);
 
   return [];
 }
 
 export default function Chart(props: Props) {
-  const [state, setState] = useState<ChartState>({
-    slice: {
-      data: [{ date: "", high: 0, low: 0, open: 0, close: 0, volume: 0 }],
-    },
-  });
+  const [state, setState] = useState<ChartState>(initialState);
   const { height = 500, width = 1000, chartData } = props;
-  // TODO
-  if (!state.slice && chartData[0]) {
+  // TODO: better way to initialize first state?
+  if (state.slice && state.slice.data.length === 1 && chartData[0]) {
     const initialState = {
       ...state,
       height,

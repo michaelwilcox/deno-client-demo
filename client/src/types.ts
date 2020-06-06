@@ -93,7 +93,7 @@ interface StockChart {
 }
 export interface StockChartData {
   range?: string;
-  data: [StockChart];
+  data: Array<StockChart>;
   low?: number;
   high?: number;
 }
