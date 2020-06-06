@@ -12,18 +12,27 @@ interface ChartState {
   height?: number;
   width?: number;
   slice: StockChartData;
-  xValues?: Array<string>;
-  yValues?: Array<number>;
+  xValues?: Array<ChartPlotPoint>;
+  yValues?: Array<ChartPlotPoint>;
 }
 
+interface ChartPlotPoint {
+  label: string | number;
+  point: number;
+}
+
+const heightDefault = 500;
+const widthDefault = 1000;
 const time = ["1D", "5D", "1M", "1Y", "5Y"];
 const initialState = () => ({
   slice: {
     data: [{ date: "", high: 0, low: 0, open: 0, close: 0, volume: 0 }],
   },
+  height: heightDefault,
+  width: widthDefault,
+  xValues: [],
+  yValues: [],
 });
-const heightDefault = 500;
-const widthDefault = 1000;
 
 function renderLines(axis: string, height: number, width: number) {
   let slots = axis === "x" ? width / 25 : height / 25;
@@ -61,6 +70,7 @@ function getASlice(
       ...prevState,
       ...newState,
       yValues: getYValues(newState),
+      xValues: getXValues(newState),
     }));
   };
 }
@@ -69,14 +79,23 @@ function getYValues(state: ChartState) {
   const { height = heightDefault, slice } = state;
   const max0 = Math.max(...slice.data.map((t) => t.open));
   const max1 = max0 + max0 / 3;
-  const yValues = slice.data.map((t) => t.open * (height / max1) + (0 - 0));
-  return yValues;
+  return slice.data.map((t) => ({
+    label: t.open,
+    point: t.open * (height / max1) + (0 - 0),
+  }));
+}
+
+function getXValues(state: ChartState) {
+  const { width = widthDefault, slice } = state;
+  const slices = slice.data.length;
+  const gap = width / slices;
+  return slice.data.map((t, i) => ({ label: t.date, point: gap * i }));
 }
 
 export default function Chart(props: Props) {
   const [state, setState] = useState<ChartState>(initialState);
   const { height = heightDefault, width = widthDefault, chartData } = props;
-  // TODO: better way to initialize first state?
+  // TODO: implement suspense + useEffect
   if (state.slice && state.slice.data.length === 1 && chartData[0]) {
     const initialState = {
       ...state,
@@ -85,6 +104,7 @@ export default function Chart(props: Props) {
       slice: chartData[0],
     };
     initialState.yValues = getYValues(initialState);
+    initialState.xValues = getXValues(initialState);
     setState((prevState) => ({ ...prevState, ...initialState }));
   }
   return (
