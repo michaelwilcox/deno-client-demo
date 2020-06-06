@@ -12,8 +12,8 @@ interface ChartState {
   height?: number;
   width?: number;
   slice: StockChartData;
-  xValues?: Array<number>;
-  yValues?: Array<string>;
+  xValues?: Array<string>;
+  yValues?: Array<number>;
 }
 
 const time = ["1D", "5D", "1M", "1Y", "5Y"];
@@ -22,6 +22,8 @@ const initialState = () => ({
     data: [{ date: "", high: 0, low: 0, open: 0, close: 0, volume: 0 }],
   },
 });
+const heightDefault = 500;
+const widthDefault = 1000;
 
 function renderLines(axis: string, height: number, width: number) {
   let slots = axis === "x" ? width / 25 : height / 25;
@@ -64,18 +66,16 @@ function getASlice(
 }
 
 function getYValues(state: ChartState) {
-  const { height, slice } = state;
-  const min = Math.min(...slice.data.map((t) => t.open));
-  const max = Math.max(...slice.data.map((t) => t.open));
-
-  console.log(`height %s min %s max %s`, height, min, max);
-
-  return [];
+  const { height = heightDefault, slice } = state;
+  const max0 = Math.max(...slice.data.map((t) => t.open));
+  const max1 = max0 + max0 / 3;
+  const yValues = slice.data.map((t) => t.open * (height / max1) + (0 - 0));
+  return yValues;
 }
 
 export default function Chart(props: Props) {
   const [state, setState] = useState<ChartState>(initialState);
-  const { height = 500, width = 1000, chartData } = props;
+  const { height = heightDefault, width = widthDefault, chartData } = props;
   // TODO: better way to initialize first state?
   if (state.slice && state.slice.data.length === 1 && chartData[0]) {
     const initialState = {
