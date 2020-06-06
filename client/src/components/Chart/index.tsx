@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import { StockChartData } from "../../types";
 
@@ -6,6 +6,14 @@ interface Props {
   height?: number;
   width?: number;
   chartData: Array<StockChartData>;
+}
+
+interface ChartState {
+  height?: number;
+  width?: number;
+  slice: StockChartData;
+  xValues?: Array<number>;
+  yValues?: Array<string>;
 }
 
 const time = ["1D", "5D", "1M", "1Y", "5Y"];
@@ -30,18 +38,53 @@ function renderLines(axis: string, height: number, width: number) {
 function getASlice(
   slice: string,
   pie: Array<StockChartData>,
-  setSlice: Function
+  state: ChartState,
+  setState: Function
 ) {
   return function handleEvent() {
-    setSlice(pie.find((d) => d.range === slice.toLowerCase()));
+    const data = pie.find((d) => d.range === slice.toLowerCase());
+    if (!data) {
+      return;
+    }
+    const newState = {
+      ...state,
+      slice: data,
+    };
+    setState((prevState: ChartState) => ({
+      ...prevState,
+      ...newState,
+      yValues: getYValues(newState),
+    }));
   };
 }
 
+function getYValues(state: ChartState) {
+  const { height, slice } = state;
+  const min = Math.min(...slice.data.map((t) => t.open));
+  const max = Math.max(...slice.data.map((t) => t.open));
+
+  console.log(height, min, max);
+
+  return [];
+}
+
 export default function Chart(props: Props) {
-  const [slice, setSlice] = useState<StockChartData>();
+  const [state, setState] = useState<ChartState>({
+    slice: {
+      data: [{ date: "", high: 0, low: 0, open: 0, close: 0, volume: 0 }],
+    },
+  });
   const { height = 500, width = 1000, chartData } = props;
-  if (!slice && chartData[0]) {
-    setSlice(chartData[0]);
+  // TODO
+  if (!state.slice && chartData[0]) {
+    const initialState = {
+      ...state,
+      height,
+      width,
+      slice: chartData[0],
+    };
+    initialState.yValues = getYValues(initialState);
+    setState((prevState) => ({ ...prevState, ...initialState }));
   }
   return (
     <div id="chart">
@@ -57,7 +100,7 @@ export default function Chart(props: Props) {
       </svg>
       <ul className="time">
         {time.map((t) => (
-          <li onClick={getASlice(t, chartData, setSlice)}>{t}</li>
+          <li onClick={getASlice(t, chartData, state, setState)}>{t}</li>
         ))}
       </ul>
     </div>
