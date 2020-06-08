@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import Chart from "../../components/Chart";
+import { RouteProps } from "../../routing/Route";
 import {
   fetchStockQuote,
   fetchStockChartData,
@@ -8,7 +9,11 @@ import {
 } from "../../contexts/stock";
 import "./style.css";
 
-export default function StockChart(props: any) {
+interface Props extends RouteProps {
+  symbol?: any; // TODO:@mike is this correct? (check router prop types)
+}
+
+function StockChartPage(props: Props) {
   const state = useStockState();
   const {
     quoteData: { companyName },
@@ -30,3 +35,9 @@ export default function StockChart(props: any) {
     </div>
   );
 }
+
+export default (props: Props) => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <StockChartPage {...props} />
+  </Suspense>
+);

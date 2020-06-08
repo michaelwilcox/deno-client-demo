@@ -1,12 +1,14 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { Router } from "@reach/router";
-import Route from "./Route";
-import Home from "../pages/Home";
-import Chart from "../pages/StockChart";
+
+const Home = lazy(() => import("../pages/Home"));
+const Chart = lazy(() => import("../pages/StockChart"));
 
 export default () => (
-  <Router>
-    <Route path="/" component={Home} />
-    <Route path="/chart/:symbol" component={Chart} />
-  </Router>
+  <Suspense fallback={<div>Loading...</div>}>
+    <Router>
+      <Home path="/" />
+      <Chart path="/chart/:symbol" />
+    </Router>
+  </Suspense>
 );
