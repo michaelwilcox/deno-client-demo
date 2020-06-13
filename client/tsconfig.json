@@ -2,7 +2,11 @@
   "compilerOptions": {
     "baseUrl": ".",
     "target": "es6",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
@@ -14,16 +18,21 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    // "isolatedModules": true,
     "rootDir": "src",
     "noImplicitReturns": false,
     "noImplicitThis": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "isolatedModules": true
   },
-  "typeRoots": ["./node_modules/@types", "./src/typings"],
-  "include": ["src"],
+  "typeRoots": [
+    "./node_modules/@types",
+    "./src/typings"
+  ],
+  "include": [
+    "src"
+  ],
   "exclude": [
     "node_modules",
     "build",
