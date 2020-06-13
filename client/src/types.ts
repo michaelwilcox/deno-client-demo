@@ -1,5 +1,14 @@
 import { ReactElement, ReactNode } from "react";
 
+type Route = {
+  match: string;
+  loadData: Function;
+  loadCode: () => Promise<{ default: React.ComponentType<any> }>;
+  component?: React.LazyExoticComponent<React.ComponentType<any>>;
+};
+
+export type Routes = Array<Route>;
+
 export interface LatestNewsArticle {
   content: string;
   engagement: number;

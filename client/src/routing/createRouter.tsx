@@ -1,8 +1,8 @@
 /**
  * Code copied from Dan Abramov
  * Annotated for TypeScript
- * https://github.com/gaearon/suspense-experimental-github-demo
  *
+ * https://github.com/gaearon/suspense-experimental-github-demo
  */
 
 import React, {
@@ -19,15 +19,10 @@ import {
   unstable_UserBlockingPriority,
 } from "scheduler";
 import Spinner from "../components/Spinner";
-import { Routes } from "./router";
+import { Routes } from "../types";
 
 // TODO:@mike hack for ts missing member
-const useTransition = (React as any).useTransition;
-
-if (window.location.pathname === "/") {
-  // Reload to our initial page.
-  window.location.pathname = "/repos/facebook/react";
-}
+const useTransition = (React as any).unstable_useTransition;
 
 type NavigateContext = (
   url: string,
@@ -164,6 +159,7 @@ export default function createRouter(routes: Routes) {
   return {
     Router,
     Link,
+    RouterContext,
   };
 }
 

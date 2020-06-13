@@ -1,14 +1,12 @@
-import React, { Suspense, lazy } from "react";
-import { Router } from "@reach/router";
-
-const Home = lazy(() => import("../pages/Home"));
-const Chart = lazy(() => import("../pages/StockChart"));
+import React, { Suspense } from "react";
+// import { Router } from "@reach/router";
+import { Router } from "./router";
+import ErrorBoundary from "../components/ErrorBoundary";
 
 export default () => (
-  <Suspense fallback={<div>Loading...</div>}>
-    <Router>
-      <Home path="/" />
-      <Chart path="/chart/:symbol" />
-    </Router>
-  </Suspense>
+  <ErrorBoundary fallback={<h2>Oops, error.</h2>}>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Router />
+    </Suspense>
+  </ErrorBoundary>
 );
