@@ -1,5 +1,4 @@
 import React, { Suspense } from "react";
-// import { Router } from "@reach/router";
 import { Router } from "./router";
 import ErrorBoundary from "../components/ErrorBoundary";
 

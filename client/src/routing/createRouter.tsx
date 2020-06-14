@@ -18,6 +18,7 @@ import {
   unstable_runWithPriority,
   unstable_UserBlockingPriority,
 } from "scheduler";
+import { pick } from "./util";
 import Spinner from "../components/Spinner";
 import { Routes } from "../types";
 
@@ -39,10 +40,7 @@ type LinkProps = {
 // Don't copy paste this into your project--it's meant as a demo
 // for what routers in the React ecosystem could do in the future.
 
-const RouterContext = createContext<NavigateContext>(() => ({
-  url: "",
-  pushState: () => {},
-}));
+const RouterContext = createContext<any>(null);
 
 // Don't forget these APIs are experimental and can change.
 const suspenseConfig = {
@@ -60,7 +58,7 @@ export default function createRouter(routes: Routes) {
   // We *don't* wait for code to start loading data.
   function loadRoute(url: string) {
     for (let route of routes) {
-      if (url.startsWith(route.match)) {
+      if (pick([{ path: route.match }], url)) {
         const params = url.substring(route.match.length);
         const props = route.loadData(params);
         // Start loading code in parallel:
