@@ -58,9 +58,9 @@ export default function createRouter(routes: Routes) {
   // We *don't* wait for code to start loading data.
   function loadRoute(url: string) {
     for (let route of routes) {
-      if (pick([{ path: route.match }], url)) {
-        const params = url.substring(route.match.length);
-        const props = route.loadData(params);
+      let matched = pick([{ path: route.match }], url);
+      if (!!matched) {
+        const props = route.loadData(matched.params);
         // Start loading code in parallel:
         route.loadCode();
         // Start rendering immediately:

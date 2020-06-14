@@ -1,36 +1,22 @@
-import React, { Suspense, useEffect } from "react";
-import Chart from "../../components/Chart";
+import React, { Suspense } from "react";
+// import Chart from "../../components/Chart";
 import { RouteProps } from "../../routing/Route";
-import {
-  fetchStockQuote,
-  fetchStockChartData,
-  useStockDispatch,
-  useStockState,
-} from "../../contexts/stock";
 import "./style.css";
 
 interface Props extends RouteProps {
-  symbol?: any; // TODO:@mike is this correct? (check router prop types)
+  stock: any; // TODO:@mike fix type
 }
 
 function StockChartPage(props: Props) {
-  const state = useStockState();
+  const { stock } = props;
+  const data = stock.read();
   const {
-    quoteData: { companyName },
-    chartData,
-  } = state;
-  const dispatch = useStockDispatch();
+    quote: { companyName },
+  } = data;
 
-  useEffect(() => {
-    fetchStockQuote(dispatch, props.symbol);
-  }, props.symbol); // only reload data on route symbol change!
-
-  useEffect(() => {
-    fetchStockChartData(dispatch, props.symbol);
-  }, props.symbol);
   return (
     <div id="chart" className="container">
-      <Chart chartData={chartData} />
+      {/* <Chart chartData={chartData} /> */}
       <h2>{companyName}</h2>
     </div>
   );

@@ -131,18 +131,6 @@ function useStockDispatch() {
   return context;
 }
 
-export async function fetchStockQuote(dispatch: StockDispatch, symbol: string) {
-  dispatch({ type: STOCK_QUOTE_DATA_FETCH_REQUEST });
-  try {
-    const res = await fetch(`${process.env.REACT_APP_SERVER}/symbol/${symbol}`);
-    const data = await res.json();
-    dispatch({ type: STOCK_QUOTE_DATA_FETCH_SUCCESS, payload: data.quote });
-  } catch (e) {
-    console.warn(e);
-    dispatch({ type: STOCK_QUOTE_DATA_FETCH_FAILURE });
-  }
-}
-
 export async function fetchStockChartData(
   dispatch: StockDispatch,
   symbol: string

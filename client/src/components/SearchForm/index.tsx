@@ -1,12 +1,13 @@
-import React, { FormEvent, useState, ChangeEvent } from "react";
-import { navigate } from "@reach/router";
+import React, { FormEvent, useContext, useState, ChangeEvent } from "react";
+import { RouterContext } from "../../routing/router";
 import "./style.css";
 
 export default function SearchForm() {
   const [symbol, setSymbol] = useState("");
+  const navigate = useContext(RouterContext);
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    navigate(`/chart/${symbol}`);
+    navigate(`/chart/${symbol}`, true);
   };
   let delayTimer: ReturnType<typeof setTimeout>;
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -18,11 +19,10 @@ export default function SearchForm() {
       return;
     }
     delayTimer = setTimeout(async () => {
-      const res = await fetch(
-        `${process.env.REACT_APP_SERVER}/search/${value}`
-      );
-      const data = await res.json();
-      console.log(data);
+      // TODO:@mike store static list on server for fast lookup
+      // const res = await fetch(
+      //   `${process.env.REACT_APP_SERVER}/search/${value}`
+      // );
     }, 1000);
   };
   return (

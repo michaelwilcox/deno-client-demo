@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import { StockChartData } from "../../types";
 
@@ -96,7 +96,7 @@ export default function Chart(props: Props) {
   const [state, setState] = useState<ChartState>(initialState);
   const { height = heightDefault, width = widthDefault, chartData } = props;
   // TODO: implement suspense + useEffect
-  if (state.slice && state.slice.data.length === 1 && chartData[0]) {
+  useEffect(() => {
     const initialState = {
       ...state,
       height,
@@ -106,7 +106,7 @@ export default function Chart(props: Props) {
     initialState.yValues = getYValues(initialState);
     initialState.xValues = getXValues(initialState);
     setState((prevState) => ({ ...prevState, ...initialState }));
-  }
+  }, []);
   return (
     <div id="chart">
       <svg height={`${height}px`} width={`${width}px`}>

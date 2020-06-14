@@ -6,6 +6,7 @@
  */
 
 import createRouter from "./createRouter";
+import prepareStockPage from "../pages/StockChart/StockChart.data";
 
 const { RouterContext, Router, Link } = createRouter([
   {
@@ -15,7 +16,7 @@ const { RouterContext, Router, Link } = createRouter([
   },
   {
     match: "/chart/:symbol",
-    loadData: () => {},
+    loadData: prepareStockPage,
     loadCode: () => import("../pages/StockChart"),
   },
 ]);
