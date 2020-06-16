@@ -21,6 +21,10 @@ interface LatestNewsArticle {
   updatedAt: string;
 }
 
+interface LatestNewsPayload {
+  items: Array<LatestNewsArticle>;
+}
+
 interface Action {
   type: string;
   payload?: any;
@@ -121,4 +125,8 @@ interface APIReaderStockQuote {
 
 interface APIReaderStockChart {
   read: () => Array<StockChartData>;
+}
+
+interface APIReaderLatestNews {
+  read: () => LatestNewsPayload;
 }

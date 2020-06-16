@@ -6,12 +6,13 @@
  */
 
 import createRouter from "./createRouter";
+import prepareHomePage from "../pages/Home/Home.data";
 import prepareStockPage from "../pages/StockChart/StockChart.data";
 
 const { RouterContext, Router, Link } = createRouter([
   {
     match: "/",
-    loadData: () => {},
+    loadData: prepareHomePage,
     loadCode: () => import("../pages/Home"),
   },
   {

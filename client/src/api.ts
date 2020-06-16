@@ -1,4 +1,8 @@
-import { APIReaderStockChart, APIReaderStockQuote } from "./typings/app/app";
+import {
+  APIReaderStockChart,
+  APIReaderStockQuote,
+  APIReaderLatestNews,
+} from "./typings/app/app";
 
 // Note: this code was borrowed
 // from https://github.com/gaearon/suspense-experimental-github-demo/blob/master/src/api.js
@@ -45,6 +49,10 @@ export const fetchStockChart = (symbol: string): APIReaderStockChart => {
   return wrapPromise(
     getFromServer(`${process.env.REACT_APP_SERVER}/chart-data/${symbol}`)
   );
+};
+
+export const fetchLatestNews = (): APIReaderLatestNews => {
+  return wrapPromise(getFromServer(`${process.env.REACT_APP_SERVER}/rss`));
 };
 
 // dispatch({ type: STOCK_QUOTE_DATA_FETCH_REQUEST });
