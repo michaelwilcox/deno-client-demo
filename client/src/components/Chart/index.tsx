@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { APIReaderStockChart, StockChartData } from "../../typings/app/app";
 import "./style.css";
 
@@ -92,7 +92,7 @@ function getXValues(state: ChartState) {
   return slice.data.map((t, i) => ({ label: t.date, point: gap * i }));
 }
 
-export default function Chart(props: Props) {
+function Chart(props: Props) {
   const [state, setState] = useState<ChartState>(initialState);
   const { height = heightDefault, width = widthDefault, stockChart } = props;
   const data = stockChart.read();
@@ -127,3 +127,9 @@ export default function Chart(props: Props) {
     </div>
   );
 }
+
+export default (props: Props) => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <Chart {...props} />
+  </Suspense>
+);
