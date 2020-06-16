@@ -1,6 +1,8 @@
+import { APIReaderStockChart, APIReaderStockQuote } from "./typings/app/app";
+
 // Note: this code was borrowed
 // from https://github.com/gaearon/suspense-experimental-github-demo/blob/master/src/api.js
-let wrapPromise = <T>(promise: Promise<T>) => {
+let wrapPromise = <T>(promise: Promise<T>): { read: () => T } => {
   var status = "pending";
   let result: T;
   let suspender = promise.then(
@@ -33,9 +35,15 @@ async function getFromServer(url: string) {
   return response.json();
 }
 
-export const fetchStock = (symbol: string) => {
+export const fetchStockQuote = (symbol: string): APIReaderStockQuote => {
   return wrapPromise(
-    getFromServer(`${process.env.REACT_APP_SERVER}/symbol/${symbol}`) // TODO: this needs to take an arg somehow
+    getFromServer(`${process.env.REACT_APP_SERVER}/symbol/${symbol}`)
+  );
+};
+
+export const fetchStockChart = (symbol: string): APIReaderStockChart => {
+  return wrapPromise(
+    getFromServer(`${process.env.REACT_APP_SERVER}/chart-data/${symbol}`)
   );
 };
 

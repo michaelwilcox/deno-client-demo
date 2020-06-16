@@ -5,7 +5,7 @@ import {
   ProviderArgs,
   StockChartData,
   StockQuoteData,
-} from "../types";
+} from "../typings/app/app";
 
 export const STOCK_QUOTE_DATA_FETCH_REQUEST = "STOCK_QUOTE_DATA_FETCH_REQUEST";
 export const STOCK_QUOTE_DATA_FETCH_SUCCESS = "STOCK_QUOTE_DATA_FETCH_SUCCESS";
@@ -39,7 +39,7 @@ interface StockState {
 
 const initialState: StockState = {
   loading: false,
-  quoteData: {},
+  quoteData: { quote: {} },
   chartData: [],
 };
 // TODO: fix action type

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { APIReaderStockChart, StockChartData } from "../../typings/app/app";
 import "./style.css";
-import { StockChartData } from "../../types";
 
 interface Props {
   height?: number;
   width?: number;
-  chartData: Array<StockChartData>;
+  stockChart: APIReaderStockChart;
 }
 
 interface ChartState {
@@ -94,14 +94,14 @@ function getXValues(state: ChartState) {
 
 export default function Chart(props: Props) {
   const [state, setState] = useState<ChartState>(initialState);
-  const { height = heightDefault, width = widthDefault, chartData } = props;
-  // TODO: implement suspense + useEffect
+  const { height = heightDefault, width = widthDefault, stockChart } = props;
+  const data = stockChart.read();
   useEffect(() => {
     const initialState = {
       ...state,
       height,
       width,
-      slice: chartData[0],
+      slice: data[0],
     };
     initialState.yValues = getYValues(initialState);
     initialState.xValues = getXValues(initialState);
@@ -121,7 +121,7 @@ export default function Chart(props: Props) {
       </svg>
       <ul className="time">
         {time.map((t) => (
-          <li onClick={getASlice(t, chartData, state, setState)}>{t}</li>
+          <li onClick={getASlice(t, data, state, setState)}>{t}</li>
         ))}
       </ul>
     </div>

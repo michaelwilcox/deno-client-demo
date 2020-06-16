@@ -20,7 +20,7 @@ import {
 } from "scheduler";
 import { pick } from "./util";
 import Spinner from "../components/Spinner";
-import { Routes } from "../types";
+import { Routes } from "../typings/app/app";
 
 // TODO:@mike hack for ts missing member
 const useTransition = (React as any).unstable_useTransition;

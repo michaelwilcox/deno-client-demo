@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { dateToHours } from "../../lib/dates";
 import "./style.css";
-import { LatestNewsArticle } from "../../types";
+import { LatestNewsArticle } from "../../typings/app/app";
 
 interface Props {}
 

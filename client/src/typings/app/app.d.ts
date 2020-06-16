@@ -7,9 +7,9 @@ type Route = {
   component?: React.LazyExoticComponent<React.ComponentType<any>>;
 };
 
-export type Routes = Array<Route>;
+type Routes = Array<Route>;
 
-export interface LatestNewsArticle {
+interface LatestNewsArticle {
   content: string;
   engagement: number;
   engagementRate: number;
@@ -21,20 +21,20 @@ export interface LatestNewsArticle {
   updatedAt: string;
 }
 
-export interface Action {
+interface Action {
   type: string;
   payload?: any;
 }
 
-export interface ProviderArgs {
+interface ProviderArgs {
   children: ReactNode;
 }
 
-export interface ConsumerArgs {
+interface ConsumerArgs {
   children(context: any): ReactElement;
 }
 
-export interface StockQuoteData {
+interface StockQuote {
   avgTotalVolume?: number;
   calculationPrice?: string;
   change?: number;
@@ -92,6 +92,10 @@ export interface StockQuoteData {
   ytdChange?: number;
 }
 
+interface StockQuoteData {
+  quote: StockQuote;
+}
+
 interface StockChart {
   date: string;
   high: number;
@@ -100,9 +104,21 @@ interface StockChart {
   close: number;
   volume: number;
 }
-export interface StockChartData {
+declare interface StockChartData {
   range?: string;
   data: Array<StockChart>;
   low?: number;
   high?: number;
+}
+
+/**
+ * API
+ */
+
+interface APIReaderStockQuote {
+  read: () => StockQuoteData;
+}
+
+interface APIReaderStockChart {
+  read: () => Array<StockChartData>;
 }

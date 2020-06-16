@@ -1,22 +1,27 @@
 import React, { Suspense } from "react";
-// import Chart from "../../components/Chart";
+import Chart from "../../components/Chart";
 import { RouteProps } from "../../routing/Route";
+import {
+  APIReaderStockChart,
+  APIReaderStockQuote,
+} from "../../typings/app/app";
 import "./style.css";
 
 interface Props extends RouteProps {
-  stock: any; // TODO:@mike fix type
+  stockQuote: APIReaderStockQuote;
+  stockChart: APIReaderStockChart;
 }
 
 function StockChartPage(props: Props) {
-  const { stock } = props;
-  const data = stock.read();
+  const { stockChart, stockQuote } = props;
+  const data = stockQuote.read();
   const {
     quote: { companyName },
   } = data;
 
   return (
     <div id="chart" className="container">
-      {/* <Chart chartData={chartData} /> */}
+      <Chart stockChart={stockChart} />
       <h2>{companyName}</h2>
     </div>
   );

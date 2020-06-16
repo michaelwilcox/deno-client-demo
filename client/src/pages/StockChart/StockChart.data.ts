@@ -1,4 +1,4 @@
-import { fetchStock } from "../../api";
+import { fetchStockChart, fetchStockQuote } from "../../api";
 
 // Data dependencies are a separate file tree colocated with the component tree.
 // Tools like Relay automate creating these files, but here we'll do it by hand.
@@ -15,6 +15,7 @@ interface DataParams {
 
 export default function prepareStockPage(params: DataParams) {
   return {
-    stock: fetchStock(params.symbol),
+    stockQuote: fetchStockQuote(params.symbol),
+    stockChart: fetchStockChart(params.symbol),
   };
 }
