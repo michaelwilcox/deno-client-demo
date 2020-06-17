@@ -1,11 +1,15 @@
+/**
+ * Code copied from Dan Abramov
+ *
+ * https://github.com/gaearon/suspense-experimental-github-demo/blob/master/src/api.js
+ */
+
 import {
   APIReaderStockChart,
   APIReaderStockQuote,
   APIReaderLatestNews,
 } from "./typings/app/app";
 
-// Note: this code was borrowed
-// from https://github.com/gaearon/suspense-experimental-github-demo/blob/master/src/api.js
 let wrapPromise = <T>(promise: Promise<T>): { read: () => T } => {
   var status = "pending";
   let result: T;
@@ -54,13 +58,3 @@ export const fetchStockChart = (symbol: string): APIReaderStockChart => {
 export const fetchLatestNews = (): APIReaderLatestNews => {
   return wrapPromise(getFromServer(`${process.env.REACT_APP_SERVER}/rss`));
 };
-
-// dispatch({ type: STOCK_QUOTE_DATA_FETCH_REQUEST });
-// try {
-//   const res = await fetch(`${process.env.REACT_APP_SERVER}/symbol/${symbol}`);
-//   const data = await res.json();
-//   dispatch({ type: STOCK_QUOTE_DATA_FETCH_SUCCESS, payload: data.quote });
-// } catch (e) {
-//   console.warn(e);
-//   dispatch({ type: STOCK_QUOTE_DATA_FETCH_FAILURE });
-// }
