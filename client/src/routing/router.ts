@@ -6,14 +6,14 @@
  */
 
 import createRouter from "./createRouter";
-import prepareHomePage from "../pages/Home/Home.data";
+import prepareNewsPage from "../pages/News/News.data";
 import prepareStockPage from "../pages/StockChart/StockChart.data";
 
 const { RouterContext, Router, Link } = createRouter([
   {
     match: "/",
-    loadData: prepareHomePage,
-    loadCode: () => import("../pages/Home"),
+    loadData: prepareNewsPage,
+    loadCode: () => import("../pages/News"),
   },
   {
     match: "/chart/:symbol",
