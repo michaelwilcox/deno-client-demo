@@ -1,3 +1,6 @@
+// TODO: think if this is needed
+// how to integrate with routing soln
+
 import React from "react";
 import {
   Action,
