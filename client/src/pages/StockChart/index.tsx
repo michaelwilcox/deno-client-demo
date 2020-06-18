@@ -1,13 +1,12 @@
 import React, { Suspense } from "react";
 import Chart from "../../components/Chart";
-import { RouteProps } from "../../routing/Route";
 import {
   APIReaderStockChart,
   APIReaderStockQuote,
 } from "../../typings/app/app";
 import "./style.css";
 
-interface Props extends RouteProps {
+interface Props {
   stockQuote: APIReaderStockQuote;
   stockChart: APIReaderStockChart;
 }
