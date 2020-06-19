@@ -1,4 +1,4 @@
-# ston.kz
+# deno-client-demo
 
 ## What is this?
 
