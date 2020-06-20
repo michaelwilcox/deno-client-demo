@@ -19,7 +19,7 @@ import {
   unstable_UserBlockingPriority,
 } from "scheduler";
 import { pick } from "./util";
-import Spinner from "../components/Spinner";
+import Loader from "../components/Loader";
 import { Routes } from "../typings/app/app";
 
 // TODO:@mike hack for ts missing member
@@ -46,7 +46,8 @@ const RouterContext = createContext<any>(null);
 const suspenseConfig = {
   timeoutMs: 5000,
   busyDelayMs: 500, // Before we show the inline spinner
-  busyMinDurationMs: 100, // If we show it, force it to stick for a bit
+  // TODO:@mike adjust once happy with positioning, etc.
+  busyMinDurationMs: 2000, // If we show it, force it to stick for a bit
 };
 
 export default function createRouter(routes: Routes) {
@@ -114,7 +115,7 @@ export default function createRouter(routes: Routes) {
            * Then try navigating and pressing the Back button.
            */
           <div className="TopLeftAbsoluteSpinner">
-            <Spinner />
+            <Loader />
           </div>
         )}
         {route}
